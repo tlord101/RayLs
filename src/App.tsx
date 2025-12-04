@@ -69,18 +69,18 @@ const BackgroundGraphics = ({ variant = 'default' }: { variant?: string }) => (
 );
 
 const Footer = () => (
-  <footer className="relative z-10 bg-[#0F0F0F] text-white pt-8 pb-10 px-6 mt-auto">
-    <div className="mb-8">
-      <p className="text-sm text-gray-400 mb-1 flex items-center gap-1.5">
-        Powered by <span className="text-white font-black text-lg tracking-wider">CLIQUE</span>
+  <footer className="relative z-10 bg-[#0F0F0F] text-white pt-6 sm:pt-8 pb-8 sm:pb-10 px-4 sm:px-6 mt-auto">
+    <div className="mb-6 sm:mb-8">
+      <p className="text-xs sm:text-sm text-gray-400 mb-1 flex items-center justify-center sm:justify-start gap-1.5">
+        Powered by <span className="text-white font-black text-base sm:text-lg tracking-wider">CLIQUE</span>
       </p>
     </div>
-    <div className="flex flex-wrap gap-x-6 gap-y-2 text-sm underline decoration-gray-500 underline-offset-4 text-gray-200 mb-5 font-light">
+    <div className="flex flex-wrap gap-x-4 sm:gap-x-6 gap-y-2 text-xs sm:text-sm underline decoration-gray-500 underline-offset-4 text-gray-200 mb-4 sm:mb-5 font-light justify-center sm:justify-start">
       <a href="#" className="hover:text-white transition-all">Privacy Policy</a>
       <a href="#" className="hover:text-white transition-all">General Terms of Service</a>
     </div>
-    <div className="text-sm text-gray-400 font-light">© 2025 Rayls. All rights reserved.</div>
-    <div className="absolute bottom-2 left-1/2 transform -translate-x-1/2 w-32 h-1.5 bg-gray-700/50 rounded-full mt-4"></div>
+    <div className="text-xs sm:text-sm text-gray-400 font-light text-center sm:text-left">© 2025 Rayls. All rights reserved.</div>
+    <div className="absolute bottom-2 left-1/2 transform -translate-x-1/2 w-24 sm:w-32 h-1 sm:h-1.5 bg-gray-700/50 rounded-full mt-3 sm:mt-4"></div>
   </footer>
 );
 
@@ -89,13 +89,18 @@ const Footer = () => (
 // -----------------------------
 
 const Stepper = ({ currentStep }: { currentStep: number }) => (
-  <div className="relative z-10 px-4 mb-6 w-full max-w-md mx-auto">
-    <div className="bg-[#111] rounded-full p-1 flex items-center justify-between text-white text-sm font-medium h-12 shadow-lg">
+  <div className="relative z-10 px-3 sm:px-4 mb-4 sm:mb-6 w-full max-w-md mx-auto">
+    <div className="bg-[#111] rounded-full p-1 flex items-center justify-between text-white text-xs sm:text-sm font-medium h-10 sm:h-12 shadow-lg">
       {[1, 2, 3, 4, 5].map((step) => {
         const isActive = step === currentStep;
         return (
           <div key={step} className={`flex-1 flex items-center justify-center h-full rounded-full transition-all duration-300 ${isActive ? 'bg-[#A38CFF] text-black shadow-sm font-bold' : 'text-gray-400'}`}>
-            {isActive ? `Step${step}` : step}
+            {isActive ? (
+              <>
+                <span className="hidden xs:inline">Step{step}</span>
+                <span className="xs:hidden">{step}</span>
+              </>
+            ) : step}
           </div>
         );
       })}
@@ -106,26 +111,26 @@ const Stepper = ({ currentStep }: { currentStep: number }) => (
 const StepLayout = ({ step, title, subtitle, children, nextLabel = "Next", onNext, isNextDisabled }: { step: number; title: string; subtitle: string; children: React.ReactNode; nextLabel?: string; onNext?: () => void; isNextDisabled: boolean }) => (
   <div className="min-h-screen flex flex-col relative bg-[#C4B5FD] font-sans">
     <BackgroundGraphics variant="step1" />
-    <div className="relative z-20 bg-transparent px-4 py-2 text-xs font-medium text-black/80 text-center sm:text-left">
+    <div className="relative z-20 bg-transparent px-3 sm:px-4 py-2 text-xs sm:text-sm font-medium text-black/80 text-center sm:text-left">
       Please join our <span className="underline font-bold cursor-pointer">Discord</span> if you have any questions or need further support.
     </div>
-    <header className="relative z-10 px-6 py-4 flex items-center">
-      <div className="flex items-center gap-2.5">
+    <header className="relative z-10 px-4 sm:px-6 py-3 sm:py-4 flex items-center">
+      <div className="flex items-center gap-2">
         <RaylsLogo />
-        <span className="text-xl font-bold tracking-tight text-black">Rayls</span>
+        <span className="text-lg sm:text-xl font-bold tracking-tight text-black">Rayls</span>
       </div>
     </header>
     <Stepper currentStep={step} />
-    <main className="relative z-10 px-4 pb-10 flex-1 flex flex-col items-center">
-      <div className="bg-white rounded-3xl p-6 shadow-xl flex flex-col items-center text-center w-full max-w-md mx-auto min-h-[420px]">
-        <h2 className="text-2xl font-bold text-black mb-3 mt-2">{title}</h2>
-        <p className="text-gray-500 text-sm mb-6 px-2 leading-relaxed max-w-[90%]">{subtitle}</p>
+    <main className="relative z-10 px-3 sm:px-4 pb-6 sm:pb-10 flex-1 flex flex-col items-center">
+      <div className="bg-white rounded-2xl sm:rounded-3xl p-4 sm:p-6 shadow-xl flex flex-col items-center text-center w-full max-w-md mx-auto min-h-[380px] sm:min-h-[420px]">
+        <h2 className="text-xl sm:text-2xl font-bold text-black mb-2 sm:mb-3 mt-1 sm:mt-2">{title}</h2>
+        <p className="text-gray-500 text-xs sm:text-sm mb-4 sm:mb-6 px-2 leading-relaxed max-w-[90%]">{subtitle}</p>
         <div className="w-full flex-1 flex flex-col items-center">{children}</div>
         {onNext && (
           <button 
             onClick={onNext} 
             disabled={isNextDisabled}
-            className={`w-full py-4 rounded-2xl font-medium text-base transition-all mt-6 ${!isNextDisabled ? 'bg-black text-white shadow-lg active:scale-95 cursor-pointer hover:bg-gray-900' : 'bg-gray-100 text-gray-400 cursor-not-allowed'}`}
+            className={`w-full py-3 sm:py-4 rounded-xl sm:rounded-2xl font-medium text-sm sm:text-base transition-all mt-4 sm:mt-6 ${!isNextDisabled ? 'bg-black text-white shadow-lg active:scale-95 cursor-pointer hover:bg-gray-900' : 'bg-gray-100 text-gray-400 cursor-not-allowed'}`}
           >
             {nextLabel}
           </button>
@@ -141,25 +146,25 @@ const StepLayout = ({ step, title, subtitle, children, nextLabel = "Next", onNex
 // -----------------------------
 
 const LandingPage = ({ onEnter }: { onEnter: () => void }) => (
-  <div className="min-h-screen flex flex-col relative bg-[#DFFF26] text-black">
+  <div className="min-h-screen flex flex-col relative bg-[#DFFF26] text-black overflow-hidden">
     <BackgroundGraphics variant="default" />
-    <header className="relative z-10 px-6 py-6 flex items-center justify-between">
-      <div className="flex items-center gap-2.5">
+    <header className="relative z-10 px-4 sm:px-6 py-4 sm:py-6 flex items-center justify-between">
+      <div className="flex items-center gap-2">
         <RaylsLogo />
-        <span className="text-xl font-bold tracking-tight">Rayls</span>
+        <span className="text-lg sm:text-xl font-bold tracking-tight">Rayls</span>
       </div>
     </header>
-    <main className="relative z-10 flex-1 flex flex-col items-center justify-center text-center px-4 pb-20 mt-[-40px]">
-      <div className="mb-8 transform translate-x-1">
-        <svg width="72" height="72" viewBox="0 0 100 100" fill="none" className="text-black">
+    <main className="relative z-10 flex-1 flex flex-col items-center justify-center text-center px-4 pb-16 sm:pb-20 mt-[-20px] sm:mt-[-40px]">
+      <div className="mb-6 sm:mb-8 transform translate-x-1">
+        <svg width="56" height="56" viewBox="0 0 100 100" fill="none" className="text-black sm:w-[72px] sm:h-[72px]">
              <path d="M20 35 C 45 35, 75 25, 90 15" stroke="currentColor" strokeWidth="14" strokeLinecap="round" />
              <path d="M20 65 C 45 65, 75 55, 90 45" stroke="currentColor" strokeWidth="14" strokeLinecap="round" />
              <path d="M20 65 C 5 65, 5 35, 20 35" stroke="currentColor" strokeWidth="14" strokeLinecap="round" />
         </svg>
       </div>
-      <h1 className="text-5xl font-extrabold text-black leading-[1.1] tracking-tight mb-2">$RLS<br />Community<br />Rewards</h1>
-      <p className="text-black/80 text-[1.05rem] mt-3 mb-10 font-medium tracking-wide">Verify your activity to unlock your reward</p>
-      <button onClick={onEnter} className="group bg-[#111] text-white pl-10 pr-8 py-4 rounded-full font-medium text-base flex items-center gap-2 hover:bg-black/80 transition-all shadow-xl active:scale-95 cursor-pointer">
+      <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold text-black leading-[1.1] tracking-tight mb-2">$RLS<br />Community<br />Rewards</h1>
+      <p className="text-black/80 text-base sm:text-[1.05rem] mt-3 mb-8 sm:mb-10 font-medium tracking-wide max-w-[90%] sm:max-w-none">Verify your activity to unlock your reward</p>
+      <button onClick={onEnter} className="group bg-[#111] text-white pl-8 sm:pl-10 pr-6 sm:pr-8 py-3 sm:py-4 rounded-full font-medium text-sm sm:text-base flex items-center gap-2 hover:bg-black/80 transition-all shadow-xl active:scale-95 cursor-pointer">
         Enter <ChevronRight size={18} className="group-hover:translate-x-0.5 transition-transform" />
       </button>
     </main>
@@ -172,24 +177,24 @@ const Step1Content = ({ onNext, openWallet, isConnected, connectedAddress }: { o
 
   return (
     <StepLayout step={1} title="Connect Wallet" subtitle="Connect your wallet to check your eligibility for rewards." onNext={onNext} isNextDisabled={!isChecked || !isConnected}>
-      <button onClick={openWallet} className={`w-full transition-colors rounded-xl p-4 flex items-center justify-between mb-auto group cursor-pointer border ${isConnected ? 'bg-green-50 border-green-200' : 'bg-gray-50 border-transparent hover:border-gray-200 hover:bg-gray-100'}`}>
-        <div className="flex items-center gap-3">
-          <div className={`p-2 rounded-lg shadow-sm border ${isConnected ? 'bg-green-100 border-green-200' : 'bg-white border-gray-100'}`}>
-             <Wallet size={20} className="text-black" />
+      <button onClick={openWallet} className={`w-full transition-colors rounded-lg sm:rounded-xl p-3 sm:p-4 flex items-center justify-between mb-auto group cursor-pointer border ${isConnected ? 'bg-green-50 border-green-200' : 'bg-gray-50 border-transparent hover:border-gray-200 hover:bg-gray-100'}`}>
+        <div className="flex items-center gap-2 sm:gap-3">
+          <div className={`p-1.5 sm:p-2 rounded-lg shadow-sm border ${isConnected ? 'bg-green-100 border-green-200' : 'bg-white border-gray-100'}`}>
+             <Wallet size={18} className="text-black sm:w-5 sm:h-5" />
           </div>
-          <span className="font-medium text-black">
+          <span className="font-medium text-black text-sm sm:text-base">
             {isConnected && connectedAddress ? `Connected: ${connectedAddress.slice(0,6)}...${connectedAddress.slice(-4)}` : "Connect Wallet"}
           </span>
         </div>
-        {isConnected ? <CheckCircle2 size={18} className="text-green-500" /> : <ChevronRight size={18} className="text-gray-400 group-hover:text-black transition-colors" />}
+        {isConnected ? <CheckCircle2 size={16} className="text-green-500 sm:w-[18px] sm:h-[18px]" /> : <ChevronRight size={16} className="text-gray-400 group-hover:text-black transition-colors sm:w-[18px] sm:h-[18px]" />}
       </button>
 
-      <div className="flex items-start gap-3 mt-8 mb-2 text-left bg-gray-50 p-3 rounded-xl w-full">
-        <div className="relative flex items-center pt-1">
-          <input type="checkbox" id="us-confirm" className="peer h-5 w-5 cursor-pointer appearance-none rounded border border-gray-400 checked:border-black checked:bg-black transition-all" checked={isChecked} onChange={() => setIsChecked(!isChecked)} />
-          <Check size={14} className="pointer-events-none absolute left-1/2 top-[45%] -translate-x-1/2 -translate-y-1/2 text-white opacity-0 peer-checked:opacity-100" />
+      <div className="flex items-start gap-2 sm:gap-3 mt-6 sm:mt-8 mb-2 text-left bg-gray-50 p-2.5 sm:p-3 rounded-lg sm:rounded-xl w-full">
+        <div className="relative flex items-center pt-0.5 sm:pt-1 shrink-0">
+          <input type="checkbox" id="us-confirm" className="peer h-4 w-4 sm:h-5 sm:w-5 cursor-pointer appearance-none rounded border border-gray-400 checked:border-black checked:bg-black transition-all" checked={isChecked} onChange={() => setIsChecked(!isChecked)} />
+          <Check size={12} className="pointer-events-none absolute left-1/2 top-[45%] -translate-x-1/2 -translate-y-1/2 text-white opacity-0 peer-checked:opacity-100 sm:w-[14px] sm:h-[14px]" />
         </div>
-        <label htmlFor="us-confirm" className="text-xs text-gray-600 leading-relaxed cursor-pointer select-none">
+        <label htmlFor="us-confirm" className="text-[11px] sm:text-xs text-gray-600 leading-relaxed cursor-pointer select-none">
           I confirm that I am not a U.S. Person (including U.S. citizens, residents, entities, or anyone located in the United States).
         </label>
       </div>
